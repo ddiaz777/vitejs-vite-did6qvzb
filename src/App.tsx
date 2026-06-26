@@ -5,7 +5,6 @@ export default function App() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [movie, setMovie] = useState("");
-
   const [noPos, setNoPos] = useState({ x: 150, y: -80 });
 
   const movies = [
@@ -41,7 +40,6 @@ export default function App() {
             </h1>
 
             <div style={{ display: "flex", justifyContent: "center", gap: "80px" }}>
-              
               <button
                 onClick={() => setStep(2)}
                 style={{
@@ -72,7 +70,6 @@ export default function App() {
               >
                 No 😅
               </button>
-
             </div>
           </div>
         )}
@@ -84,7 +81,15 @@ export default function App() {
 
             <button
               onClick={() => setStep(3)}
-              style={{ marginTop: "20px" }}
+              style={{
+                marginTop: "20px",
+                padding: "12px 25px",
+                borderRadius: "12px",
+                background: "#ec4899",
+                color: "white",
+                border: "none",
+                cursor: "pointer"
+              }}
             >
               Continuar
             </button>
@@ -94,9 +99,22 @@ export default function App() {
         {/* STEP 3 */}
         {step === 3 && (
           <div>
-            <h3>Escoge fecha y jornada 📅</h3>
+            <h3 style={{ marginBottom: "25px", fontSize: "20px" }}>
+              Escoge fecha y jornada 📅
+            </h3>
 
-            <select onChange={(e) => setSelectedDate(e.target.value)}>
+            <select
+              onChange={(e) => setSelectedDate(e.target.value)}
+              style={{
+                width: "220px",
+                padding: "12px",
+                marginBottom: "15px",
+                borderRadius: "12px",
+                border: "none",
+                fontSize: "15px",
+                boxShadow: "0 2px 5px rgba(0,0,0,0.2)"
+              }}
+            >
               <option value="">Día</option>
               <option value="Viernes">Viernes</option>
               <option value="Sábado">Sábado</option>
@@ -104,7 +122,18 @@ export default function App() {
 
             <br />
 
-            <select onChange={(e) => setSelectedTime(e.target.value)}>
+            <select
+              onChange={(e) => setSelectedTime(e.target.value)}
+              style={{
+                width: "220px",
+                padding: "12px",
+                marginBottom: "15px",
+                borderRadius: "12px",
+                border: "none",
+                fontSize: "15px",
+                boxShadow: "0 2px 5px rgba(0,0,0,0.2)"
+              }}
+            >
               <option value="">Jornada</option>
               <option value="Mañana">Mañana 🌞</option>
               <option value="Noche">Noche 🌙</option>
@@ -115,14 +144,24 @@ export default function App() {
             <button
               disabled={!selectedDate || !selectedTime}
               onClick={() => setStep(4)}
-              style={{ marginTop: "15px" }}
+              style={{
+                marginTop: "10px",
+                padding: "12px 25px",
+                borderRadius: "12px",
+                border: "none",
+                background:
+                  selectedDate && selectedTime ? "#a855f7" : "#ccc",
+                color: "white",
+                cursor:
+                  selectedDate && selectedTime ? "pointer" : "not-allowed"
+              }}
             >
               Siguiente
             </button>
           </div>
         )}
 
-        {/* STEP 4 */}
+        {/* STEP 4 (cards con efecto 3D) */}
         {step === 4 && (
           <div>
             <h3>Escoge la película 🎬</h3>
@@ -142,15 +181,33 @@ export default function App() {
                     setMovie(m.name);
                     setStep(5);
                   }}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const rotateX = (y - rect.height / 2) / 10;
+                    const rotateY = (rect.width / 2 - x) / 10;
+
+                    e.currentTarget.style.transform =
+                      `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform =
+                      "rotate(0) scale(1)";
+                  }}
                   style={{
                     background: "white",
                     borderRadius: "16px",
                     padding: "20px",
                     cursor: "pointer",
-                    boxShadow: "0 4px 10px rgba(0,0,0,0.2)"
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+                    transition: "transform 0.2s ease"
                   }}
                 >
-                  <div style={{ fontSize: "42px" }}>{m.icon}</div>
+                  <div style={{ fontSize: "42px" }}>
+                    {m.icon}
+                  </div>
                   <div>{m.name}</div>
                 </div>
               ))}
@@ -163,9 +220,10 @@ export default function App() {
           <div>
             <h2>💖 Plan confirmado 💖</h2>
 
-            <p>Escogiste <b>{movie}</b> 🎬</p>
+            <p>Escogiste <b>{movie}</b></p>
+
             <p>
-              Nos vemos el <b>{selectedDate}</b> en{" "}
+              Nos vemos el <b>{selectedDate}</b> en la {" "}
               <b>{selectedTime}</b>
             </p>
 
@@ -179,4 +237,4 @@ export default function App() {
       </div>
     </div>
   );
-} 
+}
