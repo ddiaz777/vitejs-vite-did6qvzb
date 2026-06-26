@@ -180,11 +180,11 @@ export default function App() {
                     const rotateX = -(y - centerY) / 10;
                     const rotateY = (x - centerX) / 10;
 
-                    (e.currentTarget as HTMLDivElement).style.transform =
+                    e.currentTarget.style.transform =
                       `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`;
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.transform =
+                    e.currentTarget.style.transform =
                       "rotateX(0deg) rotateY(0deg) scale(1)";
                   }}
                   style={{
@@ -235,10 +235,8 @@ export default function App() {
             </p>
 
             <p style={{ marginTop: "10px" }}>
-              Ya quiero que llegue ese día para verte 😍
+              Ya quiero que llegue ese día para verte 😍✨ 
             </p>
-
-           
           </div>
         )}
 
