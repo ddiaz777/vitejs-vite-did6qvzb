@@ -227,7 +227,7 @@ export default function App() {
             </p>
 
             <p style={{ marginTop: "10px" }}>
-              No sabes lo feliz que me hace poder compartir esto contigo 🥹
+              No sabes lo feliz que me hace poder compartir esto contigo 🥹✨ 
             </p>
 
             <p style={{ marginTop: "10px" }}>
